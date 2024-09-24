@@ -5,7 +5,13 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sfpro: ["'SF Pro', sans-serif"],
+        yukita: ["'Yukita', sans-serif"],
+        inter: ["'Inter', sans-serif"],
+      }
+    },
   },
   plugins: [],
 }

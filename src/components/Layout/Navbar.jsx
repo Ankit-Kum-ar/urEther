@@ -8,8 +8,8 @@ const Navbar = () => {
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-2">
           <Link to="/" className="flex items-center rtl:space-x-reverse">
               <img src="/assets/Logo.png" className="h-8 md:mr-3 mr-2" alt="Portfolio Logo" />
-              <span className="self-center text-2xl font-bold whitespace-nowrap text-[#2752e7]">ur</span>
-              <span className='text-2xl font-bold text-black'>Ether</span>
+              <span className="self-center text-4xl font-bold whitespace-nowrap text-[#2752e7]">ur</span>
+              <span className='text-4xl font-bold text-black'>Ether</span>
           </Link>
 
           <div id='nav-links' className={` hidden items-center justify-center w-full md:flex md:w-auto md:order-2`}>
