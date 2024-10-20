@@ -1,7 +1,27 @@
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom'
 const Navbar = () => {
   const activeClass = "block py-2 px-3 text-white bg-blue-700 rounded-xl md:bg-transparent md:text-blue-700 md:p-0 ";
   const inActivClass = "block py-2 px-3 text-[#2c3131] rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 ";
+
+  const [walletAddress, setWalletAddress] = useState('');
+
+  const connectWallet = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setWalletAddress(accounts[0]);
+        console.log(accounts[0]);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    else {
+      console.log('Metamask not found');
+    }
+  }
+
+  
 
   return (
     <nav className="md:px-12 mt-1 border-black rounded-2xl">
@@ -34,7 +54,7 @@ const Navbar = () => {
                       </button>
                   </li>
                   <li>
-                      <button className='border-2 rounded-xl border-solid md:text-base text-sm  border-[#2752E7] md:px-6 md:py-3 p-2 justify-center items-center text-[#2752E7] font-semibold'>
+                      <button className='border-2 rounded-xl border-solid md:text-base text-sm  border-[#2752E7] md:px-6 md:py-3 p-2 justify-center items-center text-[#2752E7] font-semibold hover:bg-[#2752E7] hover:text-white' onClick={connectWallet}>
                         Get Started
                       </button>
                   </li>
