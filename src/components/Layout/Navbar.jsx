@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, NavLink, useLocation } from 'react-router-dom'
+
 import Web3 from 'web3';
 const Navbar = () => {
   const activeClass = "block py-2 px-3 text-white bg-blue-700 rounded-xl md:bg-transparent md:text-blue-700 md:p-0 ";
@@ -7,6 +9,8 @@ const Navbar = () => {
 
   const location = useLocation();
   const isDashboard = location.pathname === '/dashboard';
+
+  const dispatch = useDispatch();
 
   // const [walletAddress, setWalletAddress] = useState('');
   const [isConnecting, setIsConnecting] = useState(false);
@@ -35,6 +39,7 @@ const Navbar = () => {
   const [userBalance, setUserBalance] = useState(null);
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
+  const [flag, setFlag] = useState(false);
 
   // Infura URL for Sepolia test network (replace with your Infura Project ID)
   const infuraUrl = 'https://sepolia.infura.io/v3/4d506bf951754d3e9a57a66dc28cbd4a'; // Replace with your Infura project ID
@@ -59,11 +64,13 @@ const Navbar = () => {
         const accounts = await web3Instance.eth.getAccounts();
         if (accounts.length > 0) {
           const address = accounts[0];
-          setUserAddress(address);
+          // setUserAddress(address);
+          dispatch(setUserAddress(accounts[0]));
           getBalance(address);
         } else {
           alert('No accounts found. Please check MetaMask.');
         }
+        setFlag(true);
       } catch (error) {
         console.error('Error connecting to MetaMask:', error);
         alert('MetaMask connection failed. Please try again.');
@@ -81,7 +88,7 @@ const Navbar = () => {
       try {
         const balance = await web3.eth.getBalance(address);
         console.log(balance)
-        setUserBalance(web3.utils.fromWei(balance, 'ether'));
+        dispatch(setUserBalance(web3.utils.fromWei(balance, 'ether')))
       } catch (error) {
         console.error('Error fetching balance:', error);
       }
@@ -118,6 +125,7 @@ const Navbar = () => {
       alert(`Transaction successful with hash: ${txHash.transactionHash}`);
       setRecipient('');
       setAmount('');
+      dispatch(setUserAddress(txHash.transactionHash));
     } catch (error) {
       console.error('Transaction failed:', error);
       alert('Transaction failed. Check console for error.');
@@ -184,7 +192,10 @@ const Navbar = () => {
                   disabled={isConnecting} // Disable button while connecting
                 >
                   {isConnecting ? 'Connecting...' : 'Connect Wallet'}
+                  {flag && !isConnecting && <p>Connected Address: {userAddress.substring(0,5)}...</p>}
                 </button>
+
+                
 
               </div>
             ) : (
@@ -205,6 +216,7 @@ const Navbar = () => {
             )
           }
       </div>
+      
     </nav>
   )
 }
