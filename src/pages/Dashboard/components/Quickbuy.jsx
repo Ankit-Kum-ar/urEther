@@ -20,16 +20,6 @@ const Quickbuy = () => {
     <div className="flex justify-center items-center bg-gray-100">
       <div className="bg-white rounded-lg shadow-lg p-4">
         <div className="flex justify-center items-center mb-6">
-          <div className="w-1/2 text-center">
-            <button className="text-[#2752E7] font-semibold border-b-2 border-[#2752E7] px-2">
-                Buy
-            </button>
-          </div>
-            <div className="w-1/2 text-center">
-                <button className="text-gray-500 font-semibold px-2">
-                    Sell
-                </button>
-            </div>
         </div>
         <div className="text-center mb-6">
           <p className="text-[#A9A9A9] text-sm">Ethereum Price</p>
